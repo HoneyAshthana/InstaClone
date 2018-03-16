@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feed Page</title>
+    <style>
+            body{
+                background-color:   #ccd1d1 
+                
+
+            }
+            h1{
+                color: #808000
+                
+                
+            }
+            
+        </style>
+</head>
+<body>
+    <h1 align="center">Welcome to Your Feeds </h1>
+
+    <div>
+            <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    <div>
+        <p><a class="btn btn-primary btn-lg" href="/post" role="button">Create new Post</a></p>
+        
+    </div>
+    {% for post in posts %}
+    <div align="center" class="page-header header-filter"  filter-color="default" style=" background-size: cover; background-position: top center;">
+        <div class="container">
+            
+            <h4 class="text-center">Posted By: {{ post.user.username }}</h4>
+            <h5 class="text-center">Date: {{ post.created_on }}</h3>
+            <div class="row">
+                    <div class="col-xs-12">
+                        <div class="frame">
+                            <img src="{{ post.image_url }}" class="img-responsive img-rounded post-img">
+                        </div>
+                    </div>
+            </div>
+            
+            <br />
+            <p class="text-center"><h5>Caption:" {{ post.caption }}"<h5></h5></p>
+            <form class="text-center" method="post" action="/like/">
+                {% csrf_token %}
+                <input type="hidden" name="post" value="{{ post.id }}">
+                
+                {% if post.is_liked %}
+                    <input style="background-color: blue; color: white;" type="submit" name="like" value="Unlike">
+                {% else %}
+                    <input style="background-color: white; color: black;" type="submit" name="like" value="like">
+                {% endif %}
+                <p><span name="likeCount">{{ post.like_count }}</span> Likes</p>
+            </form>
+
+            <ul class="text-center">
+                {% for comment in post.comments %}
+                <li><b> {{ comment.user.username }} </b>{{ comment.created_on }} : {{ comment.comment }}</li>
+                {% endfor %}
+            </ul>
+
+            <form  class="text-center" onsubmit="likeThisPost(this);" method="post" action="/comment/">
+                {% csrf_token %}
+                <input type="hidden" name="post" value="{{ post.id }}">
+                <br/>
+                <input type="text" name="comment_text" placeholder="Comment">
+                <input type="submit" name="comment" value="comment">
+</form>
+        </div>
+    </div>
+    {% endfor %}
+    
+</body>
+</html>

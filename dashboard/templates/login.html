@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Picimania</title>
+        <style>
+                body{
+                    background-color:  #e5e8e8
+
+                }
+                h1{
+                    color: #808000
+                }
+            </style>
+    </head>
+    <body>
+        <h1 align="center">LOGIN</h1>
+        <br>
+        <form method="POST" align="center">
+            {% csrf_token %}
+            <div align="center">
+                <label for ="username">Username : </label>
+                <input  id ="username" type="text" name="username" value ={{username}}>
+
+            </div>
+            <br>
+            <div align="center">
+                <label for ="password">Password : </label>
+                <input id ="password" type="text" name="password" value={{password}}>
+
+            </div>
+            <br>
+            <div align="center">
+            <input type="submit" value="Log In" align="center">
+            </div>
+        </form>
+        {{error_msg}}
+    </body>
+</html>

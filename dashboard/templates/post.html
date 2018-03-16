@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Post</title>
+    <style>
+            body{
+                background-color: #ccd1d1 
+            
+            }
+            h1{
+                color: #808000
+            }
+        </style>
+</head>
+<body>
+<h1 align=center>Create New Post</h1>
+<form method="POST" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {{ form }}
+    <br>
+    <br>
+
+    <input type="submit" value="Create new post">
+</form>
+
+ 
+</body>
+</html>
